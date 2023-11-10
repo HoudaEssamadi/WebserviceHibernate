@@ -31,21 +31,54 @@ public class DAOEtablissement implements IDAO<Etablissement> {
 	}
 
 	@Override
-	public boolean save(Etablissement obj) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean save(Etablissement etablissement) {
+		Transaction transaction = null;
+		try (Session session = HibernateUtils.getSessionfactory().getCurrentSession()) {
+			transaction = session.beginTransaction();
+			session.save(etablissement);
+			transaction.commit();
+			return true;
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
-	public boolean update(Etablissement obj) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean update(Etablissement etablissement) {
+		Transaction transaction = null;
+		try (Session session = HibernateUtils.getSessionfactory().getCurrentSession()) {
+			transaction = session.beginTransaction();
+			session.update(etablissement);
+			transaction.commit();
+			return true;
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 	@Override
-	public boolean delete(Etablissement obj) {
-		// TODO Auto-generated method stub
-		return false;
+	public boolean delete(Etablissement etablissement) {
+		Transaction transaction = null;
+		try (Session session = HibernateUtils.getSessionfactory().getCurrentSession()) {
+			transaction = session.beginTransaction();
+			session.delete(etablissement);
+			transaction.commit();
+			return true;
+		} catch (Exception e) {
+			if (transaction != null) {
+				transaction.rollback();
+			}
+			e.printStackTrace();
+			return false;
+		}
 	}
 
 }
